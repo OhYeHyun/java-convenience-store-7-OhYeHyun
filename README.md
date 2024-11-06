@@ -317,6 +317,13 @@ N
 - [ ] : 상품명, 가격을 갖는 객체
 
 
+- `DateRange` 클래스
+
+- [ ] : startDate, endDate를 갖는 객체
+
+- [ ] : 프로모션 기간 안인지 확인하는 함수
+
+
 - `ProductStatus` 클래스
 
 - [ ] : product, 재고, 프로모션을 갖는 객체
@@ -326,9 +333,8 @@ N
 
 - `Promotion` 클래스
 
-- [ ] : 프로모션명, buy, get, startDate, endDate를 갖는 객체
+- [ ] : 프로모션명, buyProduct, getProduct를 갖는 객체
 
-- [ ] : 프로모션 기간 안인지 확인하는 함수
 
 - [ ] : 구매해야 하는 단위를 알려주는 함수
 
