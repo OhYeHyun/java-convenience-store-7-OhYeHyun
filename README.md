@@ -352,7 +352,7 @@ N
 - [ ] : 구매할 상품과 수량을 가지고 상품 재고 관리를 수행
 
 
-- `InputView` 클래스
+- `StoreInputView` 클래스
 
 - [ ] : 구매할 상품 입력
 
@@ -367,7 +367,7 @@ N
 - [ ] : 추가 구매 여부 입력
 
 
-- `OutputView` 클래스
+- `StoreOutputView` 클래스
 
 - [ ] : 환영 인사 출력
 
@@ -384,7 +384,7 @@ N
 - [ ] : 영수증 출력
 
 
-- `ConvenienceStoreController` 클래스
+- `StoreController` 클래스
 1. 환영 인사 출력
 2. 상품 목록 출력
 3. 상품명, 수량 입력받아 CheckoutCounter 실행
