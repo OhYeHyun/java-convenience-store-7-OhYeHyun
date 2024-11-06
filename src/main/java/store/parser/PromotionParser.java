@@ -12,8 +12,8 @@ class PromotionParser{
     private final List<String[]> rawPromotions;
     private final List<Promotion> promotions = new ArrayList<>();
 
-    public PromotionParser(List<String[]> promotions) {
-        this.rawPromotions = promotions;
+    public PromotionParser(List<String[]> rawPromotions) {
+        this.rawPromotions = rawPromotions;
     }
 
     public List<Promotion> parsePromotions() {
