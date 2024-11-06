@@ -18,10 +18,10 @@ public class Promotion {
     }
 
     public int getPurchaseThreshold() {
-        return this.buyProduct + this.getProduct;
+        return buyProduct + getProduct;
     }
 
     public DateRange getDateRange() {
-        return this.dateRange;
+        return dateRange;
     }
 }

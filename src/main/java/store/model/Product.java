@@ -14,10 +14,10 @@ public class Product {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public int getPrice() {
-        return this.price;
+        return price;
     }
 }

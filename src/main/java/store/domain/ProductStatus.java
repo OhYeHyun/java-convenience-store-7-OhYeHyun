@@ -18,14 +18,14 @@ public class ProductStatus {
     }
 
     public Product getProduct() {
-        return this.product;
+        return product;
     }
 
     public int getStock() {
-        return this.stock;
+        return stock;
     }
 
     public Promotion getPromotion() {
-        return this.promotion;
+        return promotion;
     }
 }
