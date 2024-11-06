@@ -1,5 +1,6 @@
 package store.domain;
 
+import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -20,7 +21,8 @@ public class DateRange {
         return new DateRange(startDate, endDate);
     }
 
-    public boolean isBetween(LocalDate currentDate) {
+    public boolean isBetween() {
+        LocalDate currentDate = LocalDate.from(DateTimes.now());
         return startDate.isBefore(currentDate) && endDate.isAfter(currentDate);
     }
 }

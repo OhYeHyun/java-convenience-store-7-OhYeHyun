@@ -19,6 +19,6 @@ class ProductStatusTest {
         LocalDate currentDate = LocalDate.of(2024,11,1);
 
         assertThat(cokeStatus.getProduct().getName()).isEqualTo("coke");
-        assertThat(cokeStatus.getPromotion().getDateRange().isBetween(currentDate)).isTrue();
+        assertThat(cokeStatus.getPromotion().getDateRange().isBetween()).isTrue();
     }
 }
