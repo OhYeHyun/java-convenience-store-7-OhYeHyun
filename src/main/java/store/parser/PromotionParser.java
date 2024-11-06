@@ -1,13 +1,16 @@
 package store.parser;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import store.domain.DateRange;
 import store.domain.Promotion;
 
 class PromotionParser{
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final List<String[]> rawPromotions;
-    private final List<Promotion> promotions = new ArrayList<>(); // 파싱된 Promotion 객체를 저장할 리스트
+    private final List<Promotion> promotions = new ArrayList<>();
 
     public PromotionParser(List<String[]> promotions) {
         this.rawPromotions = promotions;
@@ -21,12 +24,19 @@ class PromotionParser{
     }
 
     private void parsePromotion(String[] attribute) {
-        DateRange dateRange = DateRange.of(attribute[3], attribute[4]);
+        DateRange dateRange = parseDateRange(attribute[3], attribute[4]);
         Promotion promotion = Promotion.of(attribute[0],
                 Integer.parseInt(attribute[1]),
                 Integer.parseInt(attribute[2]),
                 dateRange);
 
         promotions.add(promotion);
+    }
+
+    private DateRange parseDateRange(String rawStartDate, String rawEndDate) {
+        LocalDate startDate = LocalDate.parse(rawStartDate, FORMATTER);
+        LocalDate endDate = LocalDate.parse(rawEndDate, FORMATTER);
+
+        return DateRange.of(startDate, endDate);
     }
 }
