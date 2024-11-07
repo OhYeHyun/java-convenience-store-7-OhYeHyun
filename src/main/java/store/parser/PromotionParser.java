@@ -16,21 +16,16 @@ class PromotionParser{
         this.rawPromotions = rawPromotions;
     }
 
-    public List<Promotion> parsePromotions() {
-        for (String[] attribute : rawPromotions) {
-            parsePromotion(attribute);
+    public void parsePromotions() {
+        for (String[] attributes : rawPromotions) {
+            DateRange dateRange = parseDateRange(attributes[3], attributes[4]);
+            Promotion newPromotion = Promotion.of(attributes[0],
+                    toInt(attributes[1]),
+                    toInt(attributes[2]),
+                    dateRange);
+
+            promotions.add(newPromotion);
         }
-        return new ArrayList<>(promotions);
-    }
-
-    private void parsePromotion(String[] attribute) {
-        DateRange dateRange = parseDateRange(attribute[3], attribute[4]);
-        Promotion promotion = Promotion.of(attribute[0],
-                Integer.parseInt(attribute[1]),
-                Integer.parseInt(attribute[2]),
-                dateRange);
-
-        promotions.add(promotion);
     }
 
     private DateRange parseDateRange(String rawStartDate, String rawEndDate) {
@@ -38,5 +33,13 @@ class PromotionParser{
         LocalDate endDate = LocalDate.parse(rawEndDate, FORMATTER);
 
         return DateRange.of(startDate, endDate);
+    }
+
+    private static int toInt(String attribute) {
+        return Integer.parseInt(attribute);
+    }
+
+    public List<Promotion> getPromotions() {
+        return new ArrayList<>(promotions);
     }
 }
