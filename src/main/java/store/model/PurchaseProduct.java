@@ -11,6 +11,10 @@ public class PurchaseProduct {
         this.hasPromotionMark = false;
     }
 
+    public void changePromotionMark() {
+        hasPromotionMark = true;
+    }
+
     public String getName() {
         return name;
     }
