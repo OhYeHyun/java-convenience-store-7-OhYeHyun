@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class ProductStatus {
     private final String productName;
-    private final int quantity;
+    private int quantity;
     private final String promotionName;
 
     private ProductStatus(String productName, int quantity, String promotionName) {
@@ -27,5 +27,9 @@ public class ProductStatus {
 
     public String getPromotionName() {
         return promotionName;
+    }
+
+    public void updateQuantity(int quantityToDeduct) {
+        quantity -= quantityToDeduct;
     }
 }
