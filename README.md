@@ -333,10 +333,19 @@ N
 
 - `Promotion` 클래스
 
-- [ ] : 프로모션명, buyProduct, getProduct를 갖는 객체
-
+- [ ] : 프로모션명, buyProduct, getProduct, DateRange 를 갖는 객체
 
 - [ ] : 구매해야 하는 단위를 알려주는 함수
+
+
+- `PromotionManager` 클래스
+
+- [ ] : 프로모션명을 키, promotion 을 값으로 갖는 Map
+
+
+- `ProductManager` 클래스
+
+- [ ] : 상품명을 키, product 를 값으로 갖는 Map
 
 
 - `Membership` 클래스
