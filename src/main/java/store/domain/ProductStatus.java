@@ -1,31 +1,29 @@
 package store.domain;
 
-import store.model.Product;
-
 public class ProductStatus {
-    private final Product product;
+    private final String productName;
     private final int stock;
-    private final Promotion promotion;
+    private final String promotionName;
 
-    private ProductStatus(Product product, int stock, Promotion promotion) {
-        this.product = product;
+    private ProductStatus(String productName, int stock, String promotionName) {
+        this.productName = productName;
         this.stock = stock;
-        this.promotion = promotion;
+        this.promotionName = promotionName;
     }
 
-    public static ProductStatus of(Product product, int stock, Promotion promotion) {
-        return new ProductStatus(product, stock, promotion);
+    public static ProductStatus of(String productName, int stock, String promotionName) {
+        return new ProductStatus(productName, stock, promotionName);
     }
 
-    public Product getProduct() {
-        return product;
+    public String getProductName() {
+        return productName;
     }
 
     public int getStock() {
         return stock;
     }
 
-    public Promotion getPromotion() {
-        return promotion;
+    public String getPromotionName() {
+        return promotionName;
     }
 }
