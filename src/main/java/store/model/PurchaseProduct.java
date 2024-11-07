@@ -5,10 +5,14 @@ public class PurchaseProduct {
     private final int quantity;
     private boolean hasPromotionMark;
 
-    public PurchaseProduct(String name, int quantity) {
+    private PurchaseProduct(String name, int quantity) {
         this.name = name;
         this.quantity = quantity;
         this.hasPromotionMark = false;
+    }
+
+    public static PurchaseProduct of(String name, int quantity) {
+        return new PurchaseProduct(name, quantity);
     }
 
     public void changePromotionMark() {
