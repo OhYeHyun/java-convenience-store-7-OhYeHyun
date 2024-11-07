@@ -348,12 +348,12 @@ N
 - [ ] : 상품명을 키, product 를 값으로 갖는 Map
 
 
-- `Membership` 클래스
+- `MembershipService` 클래스
 
 - [ ] : 멤버십 할인 계산하는 함수
 
 
-- `Receipt` 클래스
+- `ReceiptService` 클래스
 
 - [ ] : 구매 상품 내역을 출력하는 함수
 
@@ -362,7 +362,7 @@ N
 - [ ] : 금액 정보를 출력하는 함수
 
 
-- `CheckoutCounter` 클래스
+- `counterService` 클래스
 
 - [ ] : 구매할 상품과 수량을 가지고 상품 재고 관리를 수행
 
