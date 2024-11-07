@@ -7,7 +7,7 @@ import store.model.Product;
 
 public class ProductStatusParser {
     private final List<String[]> rawProductStatus;
-    private final List<ProductStatus> productStatus = new ArrayList<>();
+    private final List<ProductStatus> saleList = new ArrayList<>();
     private final List<Product> products = new ArrayList<>();
 
     public ProductStatusParser(List<String[]> rawProductStatus) {
@@ -17,9 +17,9 @@ public class ProductStatusParser {
     public void parseProductStatus() {
         for (String[] attributes : rawProductStatus) {
             parseProduct(attributes[0], toInt(attributes[1]));
-            ProductStatus newProductStatus = ProductStatus.of(attributes[0], toInt(attributes[2]), attributes[3]);
+            ProductStatus productStatus = ProductStatus.of(attributes[0], toInt(attributes[2]), attributes[3]);
 
-            productStatus.add(newProductStatus);
+            saleList.add(productStatus);
         }
     }
 
@@ -31,8 +31,8 @@ public class ProductStatusParser {
         return Integer.parseInt(attribute);
     }
 
-    public List<ProductStatus> getProductStatus() {
-        return new ArrayList<>(productStatus);
+    public List<ProductStatus> getSaleList() {
+        return new ArrayList<>(saleList);
     }
 
     public List<Product> getProducts() {

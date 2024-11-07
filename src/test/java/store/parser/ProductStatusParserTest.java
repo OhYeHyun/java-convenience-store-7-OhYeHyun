@@ -22,7 +22,7 @@ class ProductStatusParserTest {
     @Test
     @DisplayName("올바른 productStatus 객체가 생성되는지 확인")
     void productStatus_객체_생성_테스트() {
-        List<ProductStatus> productStatus = productStatusParser.getProductStatus();
+        List<ProductStatus> productStatus = productStatusParser.getSaleList();
         List<String> productNames = productStatus.stream().map(ProductStatus::getProductName).toList();
 
         assertThat(productNames).contains("콜라", "오렌지주스", "물", "초코바");
