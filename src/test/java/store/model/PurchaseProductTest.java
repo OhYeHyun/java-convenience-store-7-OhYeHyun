@@ -14,4 +14,13 @@ class PurchaseProductTest {
         assertThat(purchaseProduct.getName()).isEqualTo("콜라");
     }
 
+    @Test
+    @DisplayName("해당 물건을 프로모션 상품으로 제대로 변경하는지 확인")
+    void 프로모션_변경_테스트() {
+        PurchaseProduct purchaseProduct = new PurchaseProduct("콜라", 10);
+        purchaseProduct.changePromotionMark();
+        boolean hasPromotionMark = purchaseProduct.getHasPromotionMark();
+
+        assertThat(hasPromotionMark).isTrue();
+    }
 }
