@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import store.domain.DateRange;
-import store.domain.Promotion;
+import store.model.DateRange;
+import store.model.Promotion;
 
 class PromotionParser{
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");

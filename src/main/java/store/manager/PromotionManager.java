@@ -1,10 +1,10 @@
-package store.service;
+package store.manager;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import store.domain.Promotion;
+import store.model.Promotion;
 
 public class PromotionManager {
     private final List<Promotion> promotions;

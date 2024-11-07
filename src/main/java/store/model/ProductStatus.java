@@ -1,4 +1,4 @@
-package store.domain;
+package store.model;
 
 public class ProductStatus {
     private final String productName;

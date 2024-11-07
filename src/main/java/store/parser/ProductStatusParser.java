@@ -2,7 +2,7 @@ package store.parser;
 
 import java.util.ArrayList;
 import java.util.List;
-import store.domain.ProductStatus;
+import store.model.ProductStatus;
 import store.model.Product;
 
 public class ProductStatusParser {

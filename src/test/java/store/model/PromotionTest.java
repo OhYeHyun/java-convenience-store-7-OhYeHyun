@@ -1,4 +1,4 @@
-package store.domain;
+package store.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
