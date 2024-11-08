@@ -59,8 +59,10 @@ public class CounterService {
     private void addGiftsProduct(String name, int price) {
         int giftsQuantity = purchaseList.getGiftsQuantity();
 
-        CalculatedProduct product = CalculatedProduct.of(name, giftsQuantity, giftsQuantity * price);
-        giftsProducts.add(product);
+        if (giftsQuantity > 0) {
+            CalculatedProduct product = CalculatedProduct.of(name, giftsQuantity, giftsQuantity * price);
+            giftsProducts.add(product);
+        }
     }
 
     private int calculateQuantity(List<PurchaseProduct> products, boolean isPromotion) {

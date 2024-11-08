@@ -36,8 +36,10 @@ class CounterServiceTest {
     @Test
     @DisplayName("구매한 상품과 수량으로 올바른 전체 금액이 나왔는지 확인")
     void 구매한_상품의_전체_금액_테스트() {
-        Map<String, Integer> totalPurchaseList = new LinkedHashMap<>(
-                Map.of("콜라", 12));
+        Map<String, Integer> totalPurchaseList = new LinkedHashMap<>();
+        totalPurchaseList.put("콜라", 12);
+        totalPurchaseList.put("에너지바", 4);
+
         CounterService counter = new CounterService(saleList, totalPurchaseList);
         counter.counter();
 
@@ -45,14 +47,18 @@ class CounterServiceTest {
 
         assertThat(result.get(0).getName()).isEqualTo("콜라");
         assertThat(result.get(0).getPrice()).isEqualTo(12000);
+        assertThat(result.get(1).getName()).isEqualTo("에너지바");
+        assertThat(result.get(1).getPrice()).isEqualTo(8000);
     }
 
 
     @Test
     @DisplayName("구매한 상품과 수량으로 올바른 증정 금액이 나왔는지 확인")
     void 구매한_상품의_증정_금액_테스트() {
-        Map<String, Integer> totalPurchaseList = new LinkedHashMap<>(
-                Map.of("콜라", 12));
+        Map<String, Integer> totalPurchaseList = new LinkedHashMap<>();
+        totalPurchaseList.put("콜라", 12);
+        totalPurchaseList.put("에너지바", 4);
+
         CounterService counter = new CounterService(saleList, totalPurchaseList);
         counter.counter();
 
