@@ -59,8 +59,8 @@ public class SaleList {
     }
 
     private static Comparator<ProductStatus> sortProductList() {
-        return Comparator.comparing((ProductStatus productStatus) -> {
-            if (Objects.equals(productStatus.getPromotionName(), "null")) {
+        return Comparator.comparing((ProductStatus product) -> {
+            if (Objects.equals(product.isPromotion(), true)) {
                 return 0;
             }
             return 1;
