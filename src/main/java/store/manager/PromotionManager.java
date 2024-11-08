@@ -9,8 +9,8 @@ import store.model.Promotion;
 public class PromotionManager {
     private final List<Promotion> promotions;
 
-    public PromotionManager(List<Promotion> products) {
-        this.promotions = products;
+    public PromotionManager(List<Promotion> promotions) {
+        this.promotions = promotions;
     }
 
     public Map<String, Promotion> makePromotionByName() {
