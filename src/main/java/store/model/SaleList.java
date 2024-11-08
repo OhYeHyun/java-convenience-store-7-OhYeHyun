@@ -39,7 +39,7 @@ public class SaleList {
         return purchaseQuantity - quantityToDeduct;
     }
 
-    private void validateQuantity(List<ProductStatus> productList, int purchaseQuantity) {
+    private static void validateQuantity(List<ProductStatus> productList, int purchaseQuantity) {
         int totalQuantity = productList.stream()
                 .mapToInt(ProductStatus::getQuantity)
                 .sum();
@@ -55,7 +55,7 @@ public class SaleList {
         ).sorted(sortProductList()).toList();
     }
 
-    private Comparator<ProductStatus> sortProductList() {
+    private static Comparator<ProductStatus> sortProductList() {
         return Comparator.comparing((ProductStatus productStatus) -> {
             if (Objects.equals(productStatus.getPromotionName(), "null")) {
                 return 0;
