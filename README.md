@@ -361,6 +361,11 @@ N
 - [ ] : 증정 수량 계산하는 함수
 
 
+- `CalculatedProduct` 클래스
+
+- [ ] : 이름, 수량, 가격을 갖는 객체
+
+
 - `PromotionManager` 클래스
 
 - [ ] : 프로모션명을 키, promotion 을 값으로 갖는 Map
