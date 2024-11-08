@@ -12,15 +12,20 @@ public class PurchaseList {
     private int giftsQuantity;
 
     public void addProducts(String productName, Map<String, Integer> quantityInfos) {
+        initialize();
         quantityInfos.forEach((promotionName, quantity) -> {
             if (isPromotion(promotionName)) {
                 processPromotion(promotionName, productName, quantity);
             }
-
             if (!isPromotion(promotionName)) {
                 addRegularProduct(productName, quantity);
             }
         });
+    }
+
+    private void initialize() {
+        purchaseList.clear();
+        giftsQuantity = 0;
     }
 
     private void processPromotion(String promotionName, String productName, int quantity) {
