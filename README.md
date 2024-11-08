@@ -352,6 +352,13 @@ N
 - [ ] : 구매 상품의 프로모션 상품 수, 일반 상품 수를 저장하는 함수
 
 
+- `PurchaseList` 클래스
+
+- [ ] : purchaseProduct 객체를 갖는 List
+
+- [ ] : 프로모션 단위로 프로모션 상품 개수 구하는 함수
+
+
 - `PromotionManager` 클래스
 
 - [ ] : 프로모션명을 키, promotion 을 값으로 갖는 Map
