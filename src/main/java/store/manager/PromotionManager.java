@@ -8,16 +8,19 @@ import store.model.Promotion;
 
 public class PromotionManager {
     private final List<Promotion> promotions;
+    private final Map<String, Promotion> promotionByName = new HashMap<>();
 
     public PromotionManager(List<Promotion> promotions) {
         this.promotions = promotions;
     }
 
-    public Map<String, Promotion> makePromotionByName() {
-        Map<String, Promotion> promotionByName = new HashMap<>();
+    public void makePromotionByName() {
         for (Promotion promotion : promotions) {
             promotionByName.put(promotion.getName(), promotion);
         }
+    }
+
+    public Map<String, Promotion> getPromotionByName() {
         return Collections.unmodifiableMap(promotionByName);
     }
 }

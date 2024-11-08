@@ -8,16 +8,19 @@ import store.model.Product;
 
 public class ProductManager {
     private final List<Product> products;
+    private final Map<String, Product> productByName = new HashMap<>();
 
     public ProductManager(List<Product> products) {
         this.products = products;
     }
 
-    public Map<String, Product> makeProductByName() {
-        Map<String, Product> productByName = new HashMap<>();
+    public void makeProductByName() {
         for (Product product : products) {
             productByName.put(product.getName(), product);
         }
+    }
+
+    public Map<String, Product> getProductByName() {
         return Collections.unmodifiableMap(productByName);
     }
 }
