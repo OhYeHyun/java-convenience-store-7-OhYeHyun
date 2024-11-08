@@ -37,7 +37,7 @@ public class SaleList {
         int quantityToDeduct = Math.min(product.getQuantity(), purchaseQuantity);
         product.updateQuantity(quantityToDeduct);
 
-        quantityInfo.put(product.hasPromotionMark(), quantityToDeduct);
+        quantityInfo.put(product.isPromotion(), quantityToDeduct);
 
         return purchaseQuantity - quantityToDeduct;
     }

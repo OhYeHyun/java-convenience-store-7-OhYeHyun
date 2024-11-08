@@ -3,20 +3,16 @@ package store.model;
 public class PurchaseProduct {
     private final String name;
     private final int quantity;
-    private boolean hasPromotionMark;
+    private final boolean isPromotion;
 
-    private PurchaseProduct(String name, int quantity) {
+    private PurchaseProduct(String name, int quantity, boolean isPromotion) {
         this.name = name;
         this.quantity = quantity;
-        this.hasPromotionMark = false;
+        this.isPromotion = isPromotion;
     }
 
-    public static PurchaseProduct of(String name, int quantity) {
-        return new PurchaseProduct(name, quantity);
-    }
-
-    public void changePromotionMark() {
-        hasPromotionMark = true;
+    public static PurchaseProduct of(String name, int quantity, boolean isPromotion) {
+        return new PurchaseProduct(name, quantity, isPromotion);
     }
 
     public String getName() {
@@ -27,7 +23,7 @@ public class PurchaseProduct {
         return quantity;
     }
 
-    public boolean getHasPromotionMark() {
-        return hasPromotionMark;
+    public boolean getIsPromotion() {
+        return isPromotion;
     }
 }

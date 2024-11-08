@@ -29,7 +29,7 @@ public class ProductStatus {
         return promotionName;
     }
 
-    public boolean hasPromotionMark() {
+    public boolean isPromotion() {
         return !Objects.equals(promotionName, "null");
     }
 
