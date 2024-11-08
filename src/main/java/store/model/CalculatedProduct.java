@@ -11,7 +11,7 @@ public class CalculatedProduct {
         this.price = price;
     }
 
-    public CalculatedProduct of(String name, int quantity, int price) {
+    public static CalculatedProduct of(String name, int quantity, int price) {
         return new CalculatedProduct(name, quantity, price);
     }
 
