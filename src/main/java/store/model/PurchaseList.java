@@ -9,6 +9,7 @@ import store.manager.PromotionManager;
 public class PurchaseList {
     private final List<PurchaseProduct> purchaseList = new ArrayList<>();
     private Promotion curPromotion;
+    private int giftsQuantity;
 
     public void addProducts(String productName, Map<String, Integer> quantityInfos) {
         quantityInfos.forEach((promotionName, quantity) -> {
@@ -24,6 +25,7 @@ public class PurchaseList {
 
     private void processPromotion(String promotionName, String productName, int quantity) {
         setCurPromotion(promotionName);
+        calculateGiftsQuantity(quantity);
 
         int unavailableQuantity = calculateUnavailableQuantity(quantity);
         int promotionQuantity = quantity - unavailableQuantity;
@@ -56,7 +58,16 @@ public class PurchaseList {
         return quantity % threshold;
     }
 
+    public void calculateGiftsQuantity(int quantity) {
+        int threshold = curPromotion.getPurchaseThreshold();
+        giftsQuantity = quantity / threshold;
+    }
+
     public List<PurchaseProduct> getPurchaseList() {
         return new ArrayList<>(purchaseList);
+    }
+
+    public int getGiftsQuantity() {
+        return giftsQuantity;
     }
 }
