@@ -2,14 +2,14 @@ package store.model;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 public class SaleList {
     private final List<ProductStatus> saleList;
-    private final Map<Boolean, Integer> quantityInfo = new HashMap<>();
+    private final Map<String, Integer> quantityInfo = new LinkedHashMap<>();
 
     public SaleList(List<ProductStatus> saleList) {
         this.saleList = saleList;
@@ -37,7 +37,7 @@ public class SaleList {
         int quantityToDeduct = Math.min(product.getQuantity(), purchaseQuantity);
         product.updateQuantity(quantityToDeduct);
 
-        quantityInfo.put(product.isPromotion(), quantityToDeduct);
+        quantityInfo.put(product.getPromotionName(), quantityToDeduct);
 
         return purchaseQuantity - quantityToDeduct;
     }
@@ -67,8 +67,8 @@ public class SaleList {
         });
     }
 
-    public Map<Boolean, Integer> getQuantityInfo() {
-        return new HashMap<>(quantityInfo);
+    public Map<String, Integer> getQuantityInfo() {
+        return new LinkedHashMap<>(quantityInfo);
     }
 
     public List<ProductStatus> getSaleList() {

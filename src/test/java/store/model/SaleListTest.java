@@ -33,7 +33,7 @@ class SaleListTest {
         ));
 
         saleList.purchase("콜라", 12);
-        Map<Boolean, Integer> result = saleList.getQuantityInfo();
+        Map<String, Integer> result = saleList.getQuantityInfo();
 
         assertThat(result.values()).contains(10, 2);
     }
