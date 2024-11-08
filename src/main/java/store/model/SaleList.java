@@ -7,6 +7,7 @@ import java.util.Objects;
 
 public class SaleList {
     private final List<ProductStatus> saleList;
+    private final List<Integer> quantityInfo = new ArrayList<>();
 
     public SaleList(List<ProductStatus> saleList) {
         this.saleList = saleList;
@@ -33,6 +34,7 @@ public class SaleList {
     private int calculatePurchaseQuantity(ProductStatus product, int purchaseQuantity) {
         int quantityToDeduct = Math.min(product.getQuantity(), purchaseQuantity);
         product.updateQuantity(quantityToDeduct);
+        quantityInfo.add(quantityToDeduct);
 
         return purchaseQuantity - quantityToDeduct;
     }
@@ -60,6 +62,10 @@ public class SaleList {
             }
             return 1;
         });
+    }
+
+    public List<Integer> getQuantityInfo() {
+        return new ArrayList<>(quantityInfo);
     }
 
     public List<ProductStatus> getSaleList() {
