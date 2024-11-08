@@ -29,6 +29,10 @@ public class ProductStatus {
         return promotionName;
     }
 
+    public boolean hasPromotionMark() {
+        return !Objects.equals(promotionName, "null");
+    }
+
     public void updateQuantity(int quantityToDeduct) {
         quantity -= quantityToDeduct;
     }

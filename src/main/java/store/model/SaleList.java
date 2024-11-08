@@ -2,12 +2,14 @@ package store.model;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class SaleList {
     private final List<ProductStatus> saleList;
-    private final List<Integer> quantityInfo = new ArrayList<>();
+    private final Map<Boolean, Integer> quantityInfo = new HashMap<>();
 
     public SaleList(List<ProductStatus> saleList) {
         this.saleList = saleList;
@@ -34,7 +36,8 @@ public class SaleList {
     private int calculatePurchaseQuantity(ProductStatus product, int purchaseQuantity) {
         int quantityToDeduct = Math.min(product.getQuantity(), purchaseQuantity);
         product.updateQuantity(quantityToDeduct);
-        quantityInfo.add(quantityToDeduct);
+
+        quantityInfo.put(product.hasPromotionMark(), quantityToDeduct);
 
         return purchaseQuantity - quantityToDeduct;
     }
@@ -64,8 +67,8 @@ public class SaleList {
         });
     }
 
-    public List<Integer> getQuantityInfo() {
-        return new ArrayList<>(quantityInfo);
+    public Map<Boolean, Integer> getQuantityInfo() {
+        return new HashMap<>(quantityInfo);
     }
 
     public List<ProductStatus> getSaleList() {
