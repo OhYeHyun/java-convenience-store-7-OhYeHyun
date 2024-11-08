@@ -2,7 +2,6 @@ package store.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -39,15 +38,14 @@ class PurchaseListTest {
 
         List<PurchaseProduct> result = purchaseList.getPurchaseList();
 
-        assertThat(result.stream()
-                .filter(PurchaseProduct::getIsPromotion)
+        assertThat(getQuantitySumByPromotion(result, true)).isEqualTo(9);
+        assertThat(getQuantitySumByPromotion(result, false)).isEqualTo(3);
+    }
+
+    private int getQuantitySumByPromotion(List<PurchaseProduct> products, boolean isPromotion) {
+        return products.stream()
+                .filter(product -> product.getIsPromotion() == isPromotion)
                 .mapToInt(PurchaseProduct::getQuantity)
-                .sum())
-                .isEqualTo(9);
-        assertThat(result.stream()
-                .filter((product) -> !product.getIsPromotion())
-                .mapToInt(PurchaseProduct::getQuantity)
-                .sum())
-                .isEqualTo(3);
+                .sum();
     }
 }
