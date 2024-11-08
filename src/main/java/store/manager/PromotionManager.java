@@ -7,14 +7,19 @@ import java.util.Map;
 import store.model.Promotion;
 
 public class PromotionManager {
-    private final List<Promotion> promotions;
+    private static PromotionManager instance;
     private final Map<String, Promotion> promotionByName = new HashMap<>();
 
-    public PromotionManager(List<Promotion> promotions) {
-        this.promotions = promotions;
+    private PromotionManager() {}
+
+    public static PromotionManager getInstance() {
+        if (instance == null) {
+            instance = new PromotionManager();
+        }
+        return instance;
     }
 
-    public void makePromotionByName() {
+    public void makePromotionByName(List<Promotion> promotions) {
         for (Promotion promotion : promotions) {
             promotionByName.put(promotion.getName(), promotion);
         }

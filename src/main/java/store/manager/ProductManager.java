@@ -7,14 +7,19 @@ import java.util.Map;
 import store.model.Product;
 
 public class ProductManager {
-    private final List<Product> products;
+    private static ProductManager instance;
     private final Map<String, Product> productByName = new HashMap<>();
 
-    public ProductManager(List<Product> products) {
-        this.products = products;
+    private ProductManager() {}
+
+    public static ProductManager getInstance() {
+        if (instance == null) {
+            instance = new ProductManager();
+        }
+        return instance;
     }
 
-    public void makeProductByName() {
+    public void makeProductByName(List<Product> products) {
         for (Product product : products) {
             productByName.put(product.getName(), product);
         }
