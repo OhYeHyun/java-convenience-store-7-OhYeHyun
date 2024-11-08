@@ -7,7 +7,7 @@ import java.util.List;
 import store.model.DateRange;
 import store.model.Promotion;
 
-class PromotionParser{
+public class PromotionParser{
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final List<String[]> rawPromotions;
     private final List<Promotion> promotions = new ArrayList<>();
