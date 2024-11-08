@@ -7,29 +7,33 @@ import java.util.Objects;
 import store.manager.PromotionManager;
 
 public class PurchaseList {
-    private static final Map<String, Promotion> PROMOTION_BY_NAME = PromotionManager.getInstance().getPromotionByName();
     private final List<PurchaseProduct> purchaseList = new ArrayList<>();
+    private Promotion curPromotion;
 
     public void addProducts(String productName, Map<String, Integer> quantityInfos) {
         quantityInfos.forEach((promotionName, quantity) -> {
-            int currentQuantity = quantity;
             if (isPromotion(promotionName)) {
-                int unavailableCount = calculateUnavailablePromotionCount(promotionName, currentQuantity);
-                productAddToList(productName, unavailableCount, false);
-                currentQuantity -= unavailableCount;
+                setCurPromotion(promotionName);
+
+                int unavailableqQuantity = calculateUnavailableQuantity(quantity);
+                productAddToList(productName, unavailableqQuantity, false);
+                quantity -= unavailableqQuantity;
             }
-            productAddToList(productName, currentQuantity, isPromotion(promotionName));
+            productAddToList(productName, quantity, isPromotion(promotionName));
         });
+    }
+
+    private void setCurPromotion(String promotionName) {
+        Map<String, Promotion> PROMOTION_BY_NAME = PromotionManager.getInstance().getPromotionByName();
+        curPromotion = PROMOTION_BY_NAME.get(promotionName);
     }
 
     private boolean isPromotion(String promotionName) {
         return !Objects.equals(promotionName, "null");
     }
 
-    private int calculateUnavailablePromotionCount(String promotionName, int quantity) {
-        Promotion promotion = PROMOTION_BY_NAME.get(promotionName);
-        int threshold = promotion.getPurchaseThreshold();
-
+    private int calculateUnavailableQuantity(int quantity) {
+        int threshold = curPromotion.getPurchaseThreshold();
         return quantity % threshold;
     }
 
