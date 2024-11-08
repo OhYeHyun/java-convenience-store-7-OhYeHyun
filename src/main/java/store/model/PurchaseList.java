@@ -13,14 +13,23 @@ public class PurchaseList {
     public void addProducts(String productName, Map<String, Integer> quantityInfos) {
         quantityInfos.forEach((promotionName, quantity) -> {
             if (isPromotion(promotionName)) {
-                setCurPromotion(promotionName);
-
-                int unavailableqQuantity = calculateUnavailableQuantity(quantity);
-                productAddToList(productName, unavailableqQuantity, false);
-                quantity -= unavailableqQuantity;
+                processPromotion(promotionName, productName, quantity);
             }
-            productAddToList(productName, quantity, isPromotion(promotionName));
+
+            if (!isPromotion(promotionName)) {
+                addRegularProduct(productName, quantity);
+            }
         });
+    }
+
+    private void processPromotion(String promotionName, String productName, int quantity) {
+        setCurPromotion(promotionName);
+
+        int unavailableQuantity = calculateUnavailableQuantity(quantity);
+        int promotionQuantity = quantity - unavailableQuantity;
+
+        addRegularProduct(productName, unavailableQuantity);
+        addPromotionProduct(productName, promotionQuantity);
     }
 
     private void setCurPromotion(String promotionName) {
@@ -32,14 +41,19 @@ public class PurchaseList {
         return !Objects.equals(promotionName, "null");
     }
 
+    private void addRegularProduct(String productName, int quantity) {
+        PurchaseProduct product = PurchaseProduct.of(productName, quantity, false);
+        purchaseList.add(product);
+    }
+
+    private void addPromotionProduct(String productName, int quantity) {
+        PurchaseProduct product = PurchaseProduct.of(productName, quantity, true);
+        purchaseList.add(product);
+    }
+
     private int calculateUnavailableQuantity(int quantity) {
         int threshold = curPromotion.getPurchaseThreshold();
         return quantity % threshold;
-    }
-
-    private void productAddToList(String productName, int quantity, boolean isPromotion) {
-        PurchaseProduct product = PurchaseProduct.of(productName, quantity, isPromotion);
-        purchaseList.add(product);
     }
 
     public List<PurchaseProduct> getPurchaseList() {
