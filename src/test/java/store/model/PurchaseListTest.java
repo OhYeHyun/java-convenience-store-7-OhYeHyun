@@ -42,6 +42,21 @@ class PurchaseListTest {
         assertThat(getQuantitySumByPromotion(result, false)).isEqualTo(3);
     }
 
+    @Test
+    @DisplayName("증정 수량을 올바르게 계산하는지 확인")
+    void 증정_수량_테스트() {
+        SaleList saleList = new SaleList(productStatusParser.getSaleList());
+
+        saleList.purchase("콜라", 12);
+
+        PurchaseList purchaseList = new PurchaseList();
+        purchaseList.addProducts("콜라", saleList.getQuantityInfo());
+
+        int result = purchaseList.getGiftsQuantity();
+
+        assertThat(result).isEqualTo(3);
+    }
+
     private int getQuantitySumByPromotion(List<PurchaseProduct> products, boolean isPromotion) {
         return products.stream()
                 .filter(product -> product.getIsPromotion() == isPromotion)
