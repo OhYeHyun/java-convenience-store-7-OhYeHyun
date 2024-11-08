@@ -32,8 +32,7 @@ class SaleListTest {
                 ProductStatus.of("콜라", 10, "null")
         ));
 
-        saleList.purchase("콜라", 12);
-        Map<String, Integer> result = saleList.getQuantityInfo();
+        Map<String, Integer> result = saleList.purchase("콜라", 12);;
 
         assertThat(result.values()).contains(10, 2);
     }

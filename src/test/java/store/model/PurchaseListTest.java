@@ -31,10 +31,8 @@ class PurchaseListTest {
     void purchaseProduct_객체_생성_테스트() {
         SaleList saleList = new SaleList(productStatusParser.getSaleList());
 
-        saleList.purchase("콜라", 12);
-
         PurchaseList purchaseList = new PurchaseList();
-        purchaseList.addProducts("콜라", saleList.getQuantityInfo());
+        purchaseList.addProducts("콜라", saleList.purchase("콜라", 12));
 
         List<PurchaseProduct> result = purchaseList.getPurchaseList();
 
@@ -47,10 +45,8 @@ class PurchaseListTest {
     void 증정_수량_테스트() {
         SaleList saleList = new SaleList(productStatusParser.getSaleList());
 
-        saleList.purchase("콜라", 12);
-
         PurchaseList purchaseList = new PurchaseList();
-        purchaseList.addProducts("콜라", saleList.getQuantityInfo());
+        purchaseList.addProducts("콜라", saleList.purchase("콜라", 12));
 
         int result = purchaseList.getGiftsQuantity();
 

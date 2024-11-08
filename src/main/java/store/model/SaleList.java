@@ -15,17 +15,20 @@ public class SaleList {
         this.saleList = saleList;
     }
 
-    public void purchase(String name, int quantity) {
+    public Map<String, Integer> purchase(String name, int quantity) {
         List<ProductStatus> productList = findProductList(name);
         validateQuantity(productList, quantity);
 
-        updateList(productList, quantity);
+        quantityInfo.clear();
+        updateProductList(productList, quantity);
+
+
+        return new LinkedHashMap<>(quantityInfo);
     }
 
-    private void updateList(List<ProductStatus> productList, int quantity) {
+    private void updateProductList(List<ProductStatus> productList, int quantity) {
         for (ProductStatus product : productList) {
             int purchaseQuantity = calculatePurchaseQuantity(product, quantity);
-
             if (purchaseQuantity == 0) {
                 break;
             }
@@ -53,9 +56,10 @@ public class SaleList {
     }
 
     private List<ProductStatus> findProductList(String name) {
-        return saleList.stream().filter((list) ->
-                Objects.equals(list.getProductName(), name)
-        ).sorted(sortProductList()).toList();
+        return saleList.stream()
+                .filter((list) -> Objects.equals(list.getProductName(), name))
+                .sorted(sortProductList())
+                .toList();
     }
 
     private static Comparator<ProductStatus> sortProductList() {
@@ -65,10 +69,6 @@ public class SaleList {
             }
             return 1;
         });
-    }
-
-    public Map<String, Integer> getQuantityInfo() {
-        return new LinkedHashMap<>(quantityInfo);
     }
 
     public List<ProductStatus> getSaleList() {
