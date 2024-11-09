@@ -67,4 +67,19 @@ class CounterServiceTest {
         assertThat(result.get(0).getName()).isEqualTo("콜라");
         assertThat(result.get(0).getPrice()).isEqualTo(3000);
     }
+
+    @Test
+    @DisplayName("프로모션 미적용 금액이 올바르게 계산되는지 확인")
+    void 프로모션_미적용_금액_테스트() {
+        Map<String, Integer> totalPurchaseList = new LinkedHashMap<>();
+        totalPurchaseList.put("콜라", 12);
+        totalPurchaseList.put("에너지바", 4);
+
+        CounterService counter = new CounterService(saleList, totalPurchaseList);
+        counter.counter();
+
+        int result = counter.getRegularPrice();
+
+        assertThat(result).isEqualTo(11000);
+    }
 }
