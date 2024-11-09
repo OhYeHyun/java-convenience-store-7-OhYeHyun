@@ -79,4 +79,8 @@ public class CounterService {
     public List<CalculatedProduct> getGiftsProducts() {
         return new ArrayList<>(giftsProducts);
     }
+
+    public int getRegularPrice() {
+        return regularPrice;
+    }
 }
