@@ -78,8 +78,8 @@ class CounterServiceTest {
         CounterService counter = new CounterService(saleList, totalPurchaseList);
         counter.counter();
 
-        int result = counter.getRegularPrice();
+        int result = counter.getMembershipPrice();
 
-        assertThat(result).isEqualTo(11000);
+        assertThat(result).isEqualTo(3300);
     }
 }

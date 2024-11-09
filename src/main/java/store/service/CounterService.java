@@ -52,7 +52,6 @@ public class CounterService {
         regularPrice += regularQuantity * price;
 
         CalculatedProduct product = CalculatedProduct.of(name, totalQuantity, totalQuantity * price);
-
         calculatedProducts.add(product);
     }
 
@@ -80,7 +79,7 @@ public class CounterService {
         return new ArrayList<>(giftsProducts);
     }
 
-    public int getRegularPrice() {
-        return regularPrice;
+    public int getMembershipPrice() {
+        return MembershipService.applyMemberShip(regularPrice);
     }
 }

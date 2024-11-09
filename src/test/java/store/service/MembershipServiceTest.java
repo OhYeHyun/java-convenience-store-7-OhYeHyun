@@ -11,7 +11,7 @@ class MembershipServiceTest {
     @DisplayName("멤버십 할인을 적용한 금액이 올바른지 확인")
     void 멤버십_할인_테스트() {
         int appliedAmount = MembershipService.applyMemberShip(10000);
-        assertThat(appliedAmount).isEqualTo(Math.round(10000 * 0.7));
+        assertThat(appliedAmount).isEqualTo(Math.round(10000 * 0.3));
     }
 
     @Test
