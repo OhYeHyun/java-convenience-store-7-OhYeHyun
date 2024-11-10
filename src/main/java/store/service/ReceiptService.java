@@ -38,7 +38,6 @@ public class ReceiptService {
         calculatedProducts.forEach((product) -> {
             totalPrice += product.getPrice();
             totalQuantity += product.getQuantity();
-
             print(Format.CALCULATED_PRODUCTS_FORMAT.getFormat(), product.getName(), product.getQuantity(), product.getPrice());
         });
     }
@@ -48,7 +47,6 @@ public class ReceiptService {
 
         giftsProducts.forEach((product) -> {
             totalGiftsPrice += product.getPrice();
-
             print(Format.GIFTS_PRODUCTS_FORMAT.getFormat(), product.getName(), product.getQuantity());
         });
     }
@@ -56,12 +54,10 @@ public class ReceiptService {
     private void printPriceInfo() {
         footerPrompt();
 
-        giftsProducts.forEach((product) -> {
-            printTotalPrice();
-            printPromotionPrice();
-            printMembershipPrice();
-            printFinalPrice();
-        });
+        printTotalPrice();
+        printPromotionPrice();
+        printMembershipPrice();
+        printFinalPrice();
     }
 
     private void printTotalPrice() {
