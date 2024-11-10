@@ -2,6 +2,9 @@ package store.service;
 
 import java.util.List;
 import store.model.CalculatedProduct;
+import store.model.ReceiptInfo.Format;
+import store.model.ReceiptInfo.Label;
+import store.model.ReceiptInfo.Line;
 
 public class ReceiptService {
     private final List<CalculatedProduct> calculatedProducts;
@@ -23,76 +26,81 @@ public class ReceiptService {
         printPriceInfo();
     }
 
+    private void print(String format, Object... args) {
+        String formatted = String.format(format, args);
+        System.out.println(formatted);
+    }
+
     private void printCalculatedProductsHistory() {
-        topPrompt();
+        headPrompt();
+        categoryPrompt();
+
         calculatedProducts.forEach((product) -> {
             totalPrice += product.getPrice();
             totalQuantity += product.getQuantity();
 
-            String formattedOutput = String.format("%s\t\t%d \t%,d"
-                    , product.getName(), product.getQuantity(), product.getPrice());
-            System.out.println(formattedOutput);
+            print(Format.CALCULATED_PRODUCTS_FORMAT.getFormat(), product.getName(), product.getQuantity(), product.getPrice());
         });
     }
 
     private void printGiftsProductsHistory() {
         giftsPrompt();
+
         giftsProducts.forEach((product) -> {
             totalGiftsPrice += product.getPrice();
 
-            String formattedOutput = String.format("%s\t\t%d"
-                    , product.getName(), product.getQuantity());
-            System.out.println(formattedOutput);
+            print(Format.GIFTS_PRODUCTS_FORMAT.getFormat(), product.getName(), product.getQuantity());
         });
     }
 
     private void printPriceInfo() {
-        bottomPrompt();
+        footerPrompt();
+
         giftsProducts.forEach((product) -> {
             printTotalPrice();
             printPromotionPrice();
             printMembershipPrice();
-            printPriceToPay();
+            printFinalPrice();
         });
     }
 
     private void printTotalPrice() {
-        String formattedOutput = String.format("%s\t\t%d\t%,d"
-                , "총구매액", totalQuantity, totalPrice);
-        System.out.println(formattedOutput);
+        print(Format.TOTAL_PRICE_FORMAT.getFormat(), Label.TOTAL_PRICE_LABEL.getLabel(), totalQuantity, totalPrice);
     }
 
     private void printPromotionPrice() {
-        String formattedOutput = String.format("%s\t\t\t%,d"
-                , "행사할인", totalGiftsPrice * -1);
-        System.out.println(formattedOutput);
+        print(Format.DISCOUNT_FORMAT.getFormat(), Label.PROMOTION_DISCOUNT_LABEL.getLabel(), totalGiftsPrice);
     }
 
     private void printMembershipPrice() {
-        String formattedOutput = String.format("%s\t\t\t%,d"
-                , "멤버십할인", membershipPrice * -1);
-        System.out.println(formattedOutput);
+        print(Format.DISCOUNT_FORMAT.getFormat(), Label.MEMBERSHIP_DISCOUNT_LABEL.getLabel(), membershipPrice);
     }
 
-    private void printPriceToPay() {
-        String formattedOutput = String.format("%s\t\t\t %,d"
-                , "내실돈", calculatePriceToPay());
-        System.out.println(formattedOutput);
+    private void printFinalPrice() {
+        print(Format.FINAL_PRICE_FORMAT.getFormat(), Label.FINAL_PRICE_LABEL.getLabel(), calculateFinalPrice());
     }
 
-    private int calculatePriceToPay() {
-        return totalPrice + (totalGiftsPrice * -1) + (membershipPrice * -1);
+    private void headPrompt() {
+        print(Format.LINE.getFormat(), Line.HEAD_LINE.getLine());
     }
 
-    private void topPrompt() {
-        System.out.println("==============W 편의점================");
+    private void categoryPrompt() {
+        print(Format.LINE.getFormat(), Line.CATEGORY_LINE.getLine());
     }
 
     private void giftsPrompt() {
-        System.out.println("=============증\t정===============");
+        print(Format.LINE.getFormat(), Line.GIFTS_LINE.getLine());
     }
 
-    private void bottomPrompt() {
-        System.out.println("====================================");
+    private void footerPrompt() {
+        print(Format.LINE.getFormat(), Line.FOOTER_LINE.getLine());
+    }
+
+    private int calculateDiscountPrice(int price) {
+        return price * -1;
+    }
+
+    private int calculateFinalPrice() {
+        return totalPrice + calculateDiscountPrice(totalGiftsPrice) + calculateDiscountPrice(membershipPrice);
     }
 }
