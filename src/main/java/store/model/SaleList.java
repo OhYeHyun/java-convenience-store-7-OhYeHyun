@@ -6,8 +6,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import store.manager.ProductManager;
 
 public class SaleList {
+    private final Map<String, Product> productByName = ProductManager.getInstance().getProductByName();
     private final List<ProductStatus> saleList;
     private final Map<String, Integer> quantityInfo = new LinkedHashMap<>();
 
@@ -69,6 +71,19 @@ public class SaleList {
             }
             return 1;
         });
+    }
+
+    public List<String[]> getDisplyedSaleList() {
+        List<String[]> displayedSaleList = new ArrayList<>();
+        for (ProductStatus product : saleList) {
+            String productName = product.getProductName();
+            String price = Integer.toString(productByName.get(productName).getPrice());
+            String quantity = Integer.toString(product.getQuantity());
+
+            String[] list = {productName, price, quantity, product.getPromotionName()};
+            displayedSaleList.add(list);
+        }
+        return new ArrayList<>(displayedSaleList);
     }
 
     public List<ProductStatus> getSaleList() {
