@@ -18,13 +18,20 @@ public class OutputInfo {
     }
 
     public enum SaleList {
+        NO_QUANTITY(" 재고 없음"),
+
         SALE_LIST_HAS_PROMOTION("- %s %,d원 %d개 %s"),
-        SALE_LIST_NO_PROMOTION("- %s %,d원 %d개");
+        SALE_LIST_NO_PROMOTION("- %s %,d원 %d개"),
+        SALE_LIST_NO_QUANTITY("- %s %,d원");
 
         private final String saleList;
 
         SaleList(String saleList) {
             this.saleList = saleList;
+        }
+
+        public String getSaleList(String productName, int price) {
+            return String.format(saleList + NO_QUANTITY, productName, price);
         }
 
         public String getSaleList(String productName, int price, int quantity) {
@@ -37,10 +44,12 @@ public class OutputInfo {
     }
 
     public enum Instructions {
-        RECEIVE_GIFTS_INSTRUCTIONS("현재 %s은(는) %d개를 무료로 더 받을 수 있습니다. 추가하시겠습니까? (Y/N)"),
-        REGULAR_PRICE_INSTRUCTIONS("현재 %s %d개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까? (Y/N)"),
-        MEMBERSHIP_INSTRUCTIONS("멤버십 할인을 받으시겠습니까? (Y/N)"),
-        REPURCHASE_INSTRUCTIONS("감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)");
+        YES_OR_NO(" (Y/N)"),
+
+        RECEIVE_GIFTS_INSTRUCTIONS("현재 %s은(는) %d개를 무료로 더 받을 수 있습니다. 추가하시겠습니까?"),
+        REGULAR_PRICE_INSTRUCTIONS("현재 %s %d개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까?"),
+        MEMBERSHIP_INSTRUCTIONS("멤버십 할인을 받으시겠습니까?"),
+        REPURCHASE_INSTRUCTIONS("감사합니다. 구매하고 싶은 다른 상품이 있나요?");
 
         private final String instructions;
 
@@ -49,11 +58,11 @@ public class OutputInfo {
         }
 
         public String getInstructions() {
-            return String.format(instructions);
+            return String.format(instructions + YES_OR_NO);
         }
 
         public String getInstructions(String productName, int quantity) {
-            return String.format(instructions, productName, quantity);
+            return String.format(instructions + YES_OR_NO, productName, quantity);
         }
     }
 }

@@ -49,6 +49,17 @@ public class StoreOutputView {
     }
 
     private static void printProduct(String productName, int price, int quantity, String promotionName) {
+        if (quantity == 0) {
+            printProductNoQuantity(productName, quantity);
+        }
+        printProductExistQuantity(productName, price, quantity, promotionName);
+    }
+
+    private static void printProductNoQuantity(String productName, int quantity) {
+        print(SaleList.SALE_LIST_NO_QUANTITY.getSaleList(productName, quantity));
+    }
+
+    private static void printProductExistQuantity(String productName, int price, int quantity, String promotionName) {
         if (Objects.equals(promotionName, "null")) {
             print(SaleList.SALE_LIST_NO_PROMOTION.getSaleList(productName, price, quantity));
         }
