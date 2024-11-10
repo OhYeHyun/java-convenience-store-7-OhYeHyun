@@ -9,7 +9,7 @@ import java.util.Objects;
 import store.manager.ProductManager;
 
 public class SaleList {
-    private final Map<String, Product> productByName = ProductManager.getInstance().getProductByName();
+    private static final Map<String, Product> productByName = ProductManager.getInstance().getProductByName();
     private final List<ProductStatus> saleList;
     private final Map<String, Integer> quantityInfo = new LinkedHashMap<>();
 
@@ -19,11 +19,9 @@ public class SaleList {
 
     public Map<String, Integer> purchase(String name, int quantity) {
         List<ProductStatus> productList = findProductList(name);
-        validateQuantity(productList, quantity);
 
         quantityInfo.clear();
         updateProductList(productList, quantity);
-
 
         return new LinkedHashMap<>(quantityInfo);
     }
@@ -45,16 +43,6 @@ public class SaleList {
         quantityInfo.put(product.getPromotionName(), quantityToDeduct);
 
         return purchaseQuantity - quantityToDeduct;
-    }
-
-    private static void validateQuantity(List<ProductStatus> productList, int purchaseQuantity) {
-        int totalQuantity = productList.stream()
-                .mapToInt(ProductStatus::getQuantity)
-                .sum();
-
-        if (totalQuantity < purchaseQuantity) {
-            throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
-        }
     }
 
     private List<ProductStatus> findProductList(String name) {
@@ -88,5 +76,19 @@ public class SaleList {
 
     public List<ProductStatus> getSaleList() {
         return new ArrayList<>(saleList);
+    }
+
+    public boolean isValidateName(String name) {
+        return productByName.containsKey(name);
+    }
+
+    public boolean isValidateQuantity(String name, int purchaseQuantity) {
+        List<ProductStatus> productList = findProductList(name);
+
+        int totalQuantity = productList.stream()
+                .mapToInt(ProductStatus::getQuantity)
+                .sum();
+
+        return totalQuantity >= purchaseQuantity;
     }
 }
