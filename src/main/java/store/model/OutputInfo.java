@@ -58,11 +58,11 @@ public class OutputInfo {
         }
 
         public String getInstructions() {
-            return String.format(instructions + YES_OR_NO);
+            return String.format(instructions + YES_OR_NO.instructions);
         }
 
         public String getInstructions(String productName, int quantity) {
-            return String.format(instructions + YES_OR_NO, productName, quantity);
+            return String.format(instructions + YES_OR_NO.instructions, productName, quantity);
         }
     }
 }
