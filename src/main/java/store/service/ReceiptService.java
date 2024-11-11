@@ -68,6 +68,13 @@ public class ReceiptService {
             String name = formatString(product.getName(), Convertor.TARGET_WIDTH.getValue());
             print(Format.GIFTS_PRODUCTS_FORMAT.getFormat(), name, product.getQuantity());
         });
+        printNoGiftsProducts();
+    }
+
+    private void printNoGiftsProducts() {
+        if (totalGiftsPrice == 0) {
+            print(Format.LINE.getFormat(), Label.NO_GIFTS_PRODUCT.getLabel());
+        }
     }
 
     private void printPriceInfo() {

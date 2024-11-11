@@ -22,6 +22,7 @@ public class ReceiptInfo {
         PRODUCT_QUANTITY("수량"),
         PRODUCT_PRICE("수량"),
 
+        NO_GIFTS_PRODUCT("없음"),
         TOTAL_PRICE_LABEL("총구매액"),
         PROMOTION_DISCOUNT_LABEL("행사할인"),
         MEMBERSHIP_DISCOUNT_LABEL("멤버십할인"),
