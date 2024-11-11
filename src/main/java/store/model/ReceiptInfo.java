@@ -4,8 +4,7 @@ public class ReceiptInfo {
     public enum Line {
         HEAD_LINE("==============W 편의점================"),
         GIFTS_LINE("=============증\t정==============="),
-        FOOTER_LINE("===================================="),
-        CATEGORY_LINE("상품명\t\t수량\t금액");
+        FOOTER_LINE("====================================");
 
         private final String line;
 
@@ -19,6 +18,10 @@ public class ReceiptInfo {
     }
 
     public enum Label {
+        PRODUCT_NAME("상품명"),
+        PRODUCT_QUANTITY("수량"),
+        PRODUCT_PRICE("수량"),
+
         TOTAL_PRICE_LABEL("총구매액"),
         PROMOTION_DISCOUNT_LABEL("행사할인"),
         MEMBERSHIP_DISCOUNT_LABEL("멤버십할인"),
@@ -36,11 +39,14 @@ public class ReceiptInfo {
     }
 
     public enum Format {
-        CALCULATED_PRODUCTS_FORMAT("%s\t\t%d \t%,d"),
-        GIFTS_PRODUCTS_FORMAT("%s\t\t%d"),
-        TOTAL_PRICE_FORMAT("%s\t\t%d\t%,d"),
-        DISCOUNT_FORMAT("%s\t\t\t-%,d"),
-        FINAL_PRICE_FORMAT("%s\t\t\t %,d"),
+        CATEGORY_FORMAT("%-10s\t%-6s\t%s"),
+
+        CALCULATED_PRODUCTS_FORMAT("%s\t%-6d\t%-,6d"),
+        GIFTS_PRODUCTS_FORMAT("%s\t%-6d"),
+
+        TOTAL_PRICE_FORMAT("%-10s\t%-4d\t%,6d"),
+        DISCOUNT_FORMAT("%-10s\t\t\t-%,-6d"),
+        FINAL_PRICE_FORMAT("%-10s\t\t\t%,6d"),
         LINE("%s");
 
         private final String format;
@@ -51,6 +57,24 @@ public class ReceiptInfo {
 
         public String getFormat() {
             return format;
+        }
+    }
+
+    public enum Convertor {
+        KOREAN_UNICODE_START(0xAC00),
+        KOREAN_UNICODE_END(0xD7A3),
+        KOREAN_WIDTH(2),
+        NORMAL_WIDTH(1),
+        TARGET_WIDTH(14);
+
+        private final int value;
+
+        Convertor(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
         }
     }
 }
