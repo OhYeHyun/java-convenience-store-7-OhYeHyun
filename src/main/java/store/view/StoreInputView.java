@@ -3,7 +3,8 @@ package store.view;
 import camp.nextstep.edu.missionutils.Console;
 import java.util.Map;
 import store.model.SaleList;
-import store.validator.InputValidator;
+import store.validator.PurchaseInfosInputValidator;
+import store.validator.YesOrNoInputValidator;
 
 public class StoreInputView {
 
@@ -16,10 +17,22 @@ public class StoreInputView {
 
     public Map<String, Integer> getPurchaseInfos(SaleList saleList) {
         while (true) {
-            InputValidator inputValidator = new InputValidator();
+            PurchaseInfosInputValidator validator = new PurchaseInfosInputValidator();
             String purchaseInfos = getInput();
             try {
-                return inputValidator.validateInput(saleList, purchaseInfos);
+                return validator.validateInput(saleList, purchaseInfos);
+            } catch (IllegalArgumentException e) {
+                StoreOutputView.print(e.getMessage());
+            }
+        }
+    }
+
+    public boolean getYesOrNo() {
+        while (true) {
+            YesOrNoInputValidator validator = new YesOrNoInputValidator();
+            String yesOrNo = getInput();
+            try {
+                return validator.validateInput(yesOrNo);
             } catch (IllegalArgumentException e) {
                 StoreOutputView.print(e.getMessage());
             }

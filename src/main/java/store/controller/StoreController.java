@@ -29,7 +29,12 @@ public class StoreController {
         readPromotionFile();
         readProductFile();
 
-        salesStart();
+        boolean purchasing = true;
+        while (purchasing) {
+            salesStart();
+            StoreOutputView.printRepurchaseInstructions();
+            purchasing = storeInputView.getYesOrNo();
+        }
     }
 
     public void salesStart() {
