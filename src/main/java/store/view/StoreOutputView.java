@@ -75,20 +75,14 @@ public class StoreOutputView {
         print(Text.INPUT_TEXT.getText());
     }
 
-    public static void printReceiveGiftsInstructions(String[] product) {
-        String name = product[0];
-        int quantity = Integer.parseInt(product[1]);
-
+    public static void printReceiveGiftsInstructions(String name, int quantity) {
         printLineSpace();
         print(Instructions.RECEIVE_GIFTS_INSTRUCTIONS.getInstructions(name, quantity));
     }
 
-    public static void printRegularPriceInstructions(String[] product) {
-        String name = product[0];
-        int quantity = Integer.parseInt(product[1]);
-
+    public static void printRegularPriceInstructions(String name, int quantity) {
         printLineSpace();
-        print(Instructions.REPURCHASE_INSTRUCTIONS.getInstructions(name, quantity));
+        print(Instructions.REGULAR_PRICE_INSTRUCTIONS.getInstructions(name, quantity));
     }
 
     public static void printMembershipInstructions() {

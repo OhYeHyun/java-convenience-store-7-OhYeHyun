@@ -7,11 +7,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import store.manager.ProductManager;
+import store.manager.PromotionManager;
 
 public class SaleList {
     private static final Map<String, Product> productByName = ProductManager.getInstance().getProductByName();
+    private static final Map<String, Promotion> promotionByName = PromotionManager.getInstance().getPromotionByName();
+
     private final List<ProductStatus> saleList;
     private final Map<String, Integer> quantityInfo = new LinkedHashMap<>();
+
+    private int maximumPromotionQuantity = 0;
+    private int giftsProductsAmount = 0;
 
     public SaleList(List<ProductStatus> saleList) {
         this.saleList = saleList;
@@ -24,6 +30,42 @@ public class SaleList {
         updateProductList(productList, quantity);
 
         return new LinkedHashMap<>(quantityInfo);
+    }
+
+    public ProductStatus getPromotionProduct(String name) {
+        return findProductList(name).stream()
+                .filter(ProductStatus::isPromotion)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public boolean checkRegularPrice(ProductStatus promotionProduct, int quantity) {
+        Promotion curPromotion = promotionByName.get(promotionProduct.getPromotionName());
+
+        int threshold = curPromotion.getPurchaseThreshold();
+        int productQuantity = promotionProduct.getQuantity();
+
+        maximumPromotionQuantity = (productQuantity / threshold) * threshold;
+
+        return maximumPromotionQuantity < quantity;
+    }
+
+    public int getQuantityNoPurchaseRegular(int quantity) {
+        return quantity - maximumPromotionQuantity;
+    }
+
+    public boolean checkGiftsProduct(ProductStatus promotionProduct, int quantity) {
+        Promotion curPromotion = promotionByName.get(promotionProduct.getPromotionName());
+
+        int threshold = curPromotion.getPurchaseThreshold();
+        int buyProduct = curPromotion.getBuyProduct();
+        giftsProductsAmount = curPromotion.getGetProduct();
+
+        return quantity % threshold == buyProduct;
+    }
+
+    public int getQuantityAddedGiftsProducts(int quantity) {
+        return giftsProductsAmount;
     }
 
     private void updateProductList(List<ProductStatus> productList, int quantity) {

@@ -25,6 +25,14 @@ public class Promotion {
         return name;
     }
 
+    public int getBuyProduct() {
+        return buyProduct;
+    }
+
+    public int getGetProduct() {
+        return getProduct;
+    }
+
     public DateRange getDateRange() {
         return dateRange;
     }

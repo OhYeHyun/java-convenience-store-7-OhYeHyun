@@ -11,7 +11,7 @@ public class StoreInputView {
     public StoreInputView() {
     }
 
-    private String getInput() {
+    private static String getInput() {
         return Console.readLine();
     }
 
@@ -27,7 +27,7 @@ public class StoreInputView {
         }
     }
 
-    public boolean getYesOrNo() {
+    public static boolean getYesOrNo() {
         while (true) {
             YesOrNoInputValidator validator = new YesOrNoInputValidator();
             String yesOrNo = getInput();
