@@ -20,9 +20,10 @@ public class OutputInfo {
     public enum SaleList {
         NO_QUANTITY(" 재고 없음"),
 
-        SALE_LIST_HAS_PROMOTION("- %s %,d원 %d개 %s"),
-        SALE_LIST_NO_PROMOTION("- %s %,d원 %d개"),
-        SALE_LIST_NO_QUANTITY("- %s %,d원");
+        SALE_LIST_HAS_QUANTITY_HAS_PROMOTION("- %s %,d원 %d개 %s"),
+        SALE_LIST_HAS_QUANTITY_NO_PROMOTION("- %s %,d원 %d개"),
+        SALE_LIST_NO_QUANTITY_HAS_PROMOTION("- %s %,d원 %s %s"),
+        SALE_LIST_NO_QUANTITY_NO_PROMOTION("- %s %,d원 %s");
 
         private final String saleList;
 
@@ -31,7 +32,11 @@ public class OutputInfo {
         }
 
         public String getSaleList(String productName, int price) {
-            return String.format(saleList + NO_QUANTITY.saleList, productName, price);
+            return String.format(saleList, productName, price, NO_QUANTITY.saleList);
+        }
+
+        public String getSaleList(String productName, int price, String promotionName) {
+            return String.format(saleList, productName, price, NO_QUANTITY.saleList, promotionName);
         }
 
         public String getSaleList(String productName, int price, int quantity) {
