@@ -32,15 +32,17 @@ public class StoreController {
         readPromotionFile();
         readProductFile();
 
+        boolean isFirstPrompt = true;
         boolean purchasing = true;
         while (purchasing) {
-            salesStart();
+            salesStart(isFirstPrompt);
             purchasing = requireRepurchase();
+            isFirstPrompt = false;
         }
     }
 
-    public void salesStart() {
-        StoreOutputView.printVisitText(loadSaleList());
+    public void salesStart(boolean isFirstPrompt) {
+        StoreOutputView.printVisitText(isFirstPrompt, loadSaleList());
         Map<String, Integer> purchaseInfos = storeInputView.getPurchaseInfos(saleList);
         notifyPromotionQuantity(purchaseInfos);
 

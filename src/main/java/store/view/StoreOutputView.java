@@ -16,7 +16,10 @@ public class StoreOutputView {
         System.out.print(System.lineSeparator());
     }
 
-    public static void printVisitText(List<String[]> saleList) {
+    public static void printVisitText(boolean isFirstPrompt, List<String[]> saleList) {
+        if (!isFirstPrompt) {
+            printLineSpace();
+        }
         promptWelcomeText();
         promptListText();
         promptSaleList(saleList);
