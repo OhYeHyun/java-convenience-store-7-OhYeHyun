@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import store.model.SaleList;
 
-public class InputValidator {
+public class PurchaseInfosInputValidator {
     private static final String PURCHASE_INFOS_DELIMITER = ",";
     private static final String PURCHASE_INFO_DELIMITER = "^\\[|\\]$";
     private static final String PURCHASE_INFO_ATTRIBUTES_DELIMITER = "-";
