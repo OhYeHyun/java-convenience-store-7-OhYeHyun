@@ -25,13 +25,26 @@ public class ProductStatusParser {
             parseProduct(attributes[0], toInt(attributes[1]));
             ProductStatus productStatus = createProductStatus(attributes);
 
-            boolean isExist = isExistProduct(productStatus);
-            if (isExist) {
-                updateQuantity(productStatus);
-            }
-            if (!isExist) {
-                saleList.add(productStatus);
-            }
+            handleProductStatus(productStatus);
+
+            addRegularProductIfExist(productStatus);
+        }
+    }
+
+    private void handleProductStatus(ProductStatus productStatus) {
+        boolean isExist = isExistProduct(productStatus);
+        if (isExist) {
+            updateQuantity(productStatus);
+        }
+        if (!isExist) {
+            saleList.add(productStatus);
+        }
+    }
+
+    private void addRegularProductIfExist(ProductStatus productStatus) {
+        ProductStatus normalProduct = ProductStatus.of(productStatus.getProductName(), 0, "null");
+        if (!Objects.equals(productStatus.getPromotionName(), "null") && !isExistProduct(normalProduct)) {
+            saleList.add(normalProduct);
         }
     }
 
@@ -57,7 +70,7 @@ public class ProductStatusParser {
                 .anyMatch(product -> isSameProduct(product, productStatus));
     }
 
-    private boolean checkPromotion(String promotionName) {
+    private boolean checkPromotionPeriod(String promotionName) {
         if (!Objects.equals(promotionName, "null")) {
             Promotion promotion = promotionsByName.get(promotionName);
 
@@ -67,7 +80,7 @@ public class ProductStatusParser {
     }
 
     private ProductStatus createProductStatus(String[] attributes) {
-        if (checkPromotion(attributes[3])) {
+        if (checkPromotionPeriod(attributes[3])) {
             return ProductStatus.of(attributes[0], toInt(attributes[2]), attributes[3]);
         }
         return ProductStatus.of(attributes[0], toInt(attributes[2]), "null");
@@ -82,8 +95,6 @@ public class ProductStatusParser {
     }
 
     public List<ProductStatus> getSaleList() {
-//        saleList.stream().mapToInt()
-
         return new ArrayList<>(saleList);
     }
 
