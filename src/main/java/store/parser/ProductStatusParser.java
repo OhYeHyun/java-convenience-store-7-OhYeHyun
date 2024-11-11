@@ -2,12 +2,18 @@ package store.parser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import store.manager.PromotionManager;
 import store.model.ProductStatus;
 import store.model.Product;
+import store.model.Promotion;
 
 public class ProductStatusParser {
+    public static final Map<String, Promotion> promotionsByName = PromotionManager.getInstance().getPromotionByName();
     private final List<String[]> rawProductStatus;
-    private final List<ProductStatus> saleList = new ArrayList<>();
+    private List<ProductStatus> saleList = new ArrayList<>();
     private final List<Product> products = new ArrayList<>();
 
     public ProductStatusParser(List<String[]> rawProductStatus) {
@@ -17,10 +23,54 @@ public class ProductStatusParser {
     public void parseProductStatus() {
         for (String[] attributes : rawProductStatus) {
             parseProduct(attributes[0], toInt(attributes[1]));
-            ProductStatus productStatus = ProductStatus.of(attributes[0], toInt(attributes[2]), attributes[3]);
+            ProductStatus productStatus = createProductStatus(attributes);
 
-            saleList.add(productStatus);
+            boolean isExist = isExistProduct(productStatus);
+            if (isExist) {
+                updateQuantity(productStatus);
+            }
+            if (!isExist) {
+                saleList.add(productStatus);
+            }
         }
+    }
+
+    private void updateQuantity(ProductStatus productStatus) {
+        saleList = saleList.stream()
+                .map(product -> {
+                    if (isSameProduct(product, productStatus)) {
+                        product.setQuantity(product.getQuantity() + productStatus.getQuantity());
+                        return product;
+                    }
+                    return product;
+                })
+                .collect(Collectors.toList());
+    }
+
+    private boolean isSameProduct(ProductStatus product, ProductStatus productStatus) {
+        return Objects.equals(product.getProductName(), productStatus.getProductName()) &&
+                Objects.equals(product.getPromotionName(), productStatus.getPromotionName());
+    }
+
+    private boolean isExistProduct(ProductStatus productStatus) {
+        return saleList.stream()
+                .anyMatch(product -> isSameProduct(product, productStatus));
+    }
+
+    private boolean checkPromotion(String promotionName) {
+        if (!Objects.equals(promotionName, "null")) {
+            Promotion promotion = promotionsByName.get(promotionName);
+
+            return promotion.getDateRange().isBetween();
+        }
+        return true;
+    }
+
+    private ProductStatus createProductStatus(String[] attributes) {
+        if (checkPromotion(attributes[3])) {
+            return ProductStatus.of(attributes[0], toInt(attributes[2]), attributes[3]);
+        }
+        return ProductStatus.of(attributes[0], toInt(attributes[2]), "null");
     }
 
     private void parseProduct(String name, int price) {
@@ -32,6 +82,8 @@ public class ProductStatusParser {
     }
 
     public List<ProductStatus> getSaleList() {
+//        saleList.stream().mapToInt()
+
         return new ArrayList<>(saleList);
     }
 

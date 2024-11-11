@@ -25,6 +25,10 @@ public class ProductStatus {
         return quantity;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public String getPromotionName() {
         return promotionName;
     }

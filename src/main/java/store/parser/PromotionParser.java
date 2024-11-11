@@ -19,12 +19,12 @@ public class PromotionParser{
     public void parsePromotions() {
         for (String[] attributes : rawPromotions) {
             DateRange dateRange = parseDateRange(attributes[3], attributes[4]);
-            Promotion newPromotion = Promotion.of(attributes[0],
+            Promotion promotion = Promotion.of(attributes[0],
                     toInt(attributes[1]),
                     toInt(attributes[2]),
                     dateRange);
 
-            promotions.add(newPromotion);
+            promotions.add(promotion);
         }
     }
 
