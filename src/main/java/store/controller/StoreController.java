@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import store.manager.ProductManager;
 import store.manager.PromotionManager;
+import store.model.CalculatedProduct;
 import store.model.SaleList;
 import store.parser.ProductStatusParser;
 import store.parser.PromotionParser;
@@ -32,8 +33,7 @@ public class StoreController {
         boolean purchasing = true;
         while (purchasing) {
             salesStart();
-            StoreOutputView.printRepurchaseInstructions();
-            purchasing = storeInputView.getYesOrNo();
+            purchasing = requireRepurchase();
         }
     }
 
@@ -41,11 +41,28 @@ public class StoreController {
         StoreOutputView.printVisitText(loadSaleList());
         Map<String, Integer> purchaseInfos = storeInputView.getPurchaseInfos(saleList);
 
-        CounterService counterService = new CounterService(saleList, purchaseInfos);
-        counterService.counter();
+        CounterService counter = new CounterService(saleList, purchaseInfos);
+        counter.counter();
 
-        ReceiptService receiptService = new ReceiptService(counterService.getCalculatedProducts(), counterService.getGiftsProducts(), counterService.getMembershipPrice());
-        receiptService.issueReceipt();
+        ReceiptService receipt = applyMembership(counter.getCalculatedProducts(), counter.getGiftsProducts(), counter.getMembershipPrice());
+        receipt.issueReceipt();
+    }
+
+    private ReceiptService applyMembership(List<CalculatedProduct> calculatedProducts, List<CalculatedProduct> giftsProducts, int membershipPrice) {
+        if (requireMembership()) {
+            return new ReceiptService(calculatedProducts, giftsProducts, membershipPrice);
+        }
+        return new ReceiptService(calculatedProducts, giftsProducts, 0);
+    }
+
+    private boolean requireRepurchase() {
+        StoreOutputView.printRepurchaseInstructions();
+        return storeInputView.getYesOrNo();
+    }
+
+    private boolean requireMembership() {
+        StoreOutputView.printMembershipInstructions();
+        return storeInputView.getYesOrNo();
     }
 
     private void readPromotionFile() {
