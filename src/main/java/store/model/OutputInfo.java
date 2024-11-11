@@ -31,7 +31,7 @@ public class OutputInfo {
         }
 
         public String getSaleList(String productName, int price) {
-            return String.format(saleList + NO_QUANTITY, productName, price);
+            return String.format(saleList + NO_QUANTITY.saleList, productName, price);
         }
 
         public String getSaleList(String productName, int price, int quantity) {
