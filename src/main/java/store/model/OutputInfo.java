@@ -18,7 +18,7 @@ public class OutputInfo {
     }
 
     public enum SaleList {
-        NO_QUANTITY(" 재고 없음"),
+        NO_QUANTITY("재고 없음"),
 
         SALE_LIST_HAS_QUANTITY_HAS_PROMOTION("- %s %,d원 %d개 %s"),
         SALE_LIST_HAS_QUANTITY_NO_PROMOTION("- %s %,d원 %d개"),
