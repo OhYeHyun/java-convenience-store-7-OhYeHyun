@@ -2,7 +2,6 @@ package store.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import store.manager.ProductManager;
 import store.manager.PromotionManager;
 import store.model.CalculatedProduct;
@@ -47,7 +46,6 @@ public class StoreController {
         notifyPromotionQuantity(purchaseInfos);
 
         CounterService counter = new CounterService(saleList, purchaseInfos);
-
         counter.counter();
 
         ReceiptService receipt = applyMembership(counter.getCalculatedProducts(), counter.getGiftsProducts(), counter.getMembershipPrice());
