@@ -297,134 +297,156 @@ Y
 N
 ```
 ## ☑️ 구현할 기능 목록
-- `Application` 클래스
 
-- [ ] : 편의점을 오픈하는 함수
+```
+src/
+├── controller/
+│   └── StoreController
+├── manager/
+│   └── ProductManager
+├── model/
+│   ├── CalculatedProduct/
+│   ├── DateRange/
+│   ├── OutputInfo/
+│   ├── Product/
+│   ├── ProductStatus/
+│   ├── PurchaseList/
+│   ├── PurchaseProduct/
+│   ├── ReceiptInfo/
+│   └── SaleList/
+├── parser/
+│   ├── ProductStatusParser
+│   └── PromotionParser
+├── service/
+│   ├── CounterService
+│   ├── MembershipService
+│   └── ReceiptService
+├── utility/
+│   └── CSVReader
+├── Validator/
+│   ├── PurchaseInforsInputValidator
+│   ├── StoreErrorMessages
+│   └── YesOrNoInputValidator
+├── view/
+│   ├── StoreInputView
+│   └── StoreOutputView
+└───Application
+```
+
+- `Application` 클래스
+- [x] : 편의점을 오픈하는 함수
 
 
 - `PromotionParser`
+- [x] : DateRange (시작일, 종료일) 객체
+- [x] : Promotions : Promotion (프로모션 이름, 사는 개수, 증정 개수, DateRange 객체) 객체를 담는 List 생성
 
-- [ ] : 프로모션 정보 파일을 받아 Promotion 객체 생성
-
-
-- `ProductParser` 
-
-- [ ] : 상품 목록 파일을 받아 Product 객체와 ProductStratus 객체 생성
-
+  
+- `ProductStratusParser`
+- [x] : Products : Product (상품 이름, 가격) 객체를 담는 List 생성
+- [x] : ProductStratus (상품 이름, 가격, 프로모션 이름) 객체
+- [x] : 프로모션 기간이 지난 상품은 프로모션 이름 "null"로 추가  
+- [x] : 프로모션 상품만 가진 상품은 일반 상품 "재고 없음" 하여 추가  
 
 - `Product` 클래스
-
-- [ ] : 상품명, 가격을 갖는 객체
-
+- [x] : Product (상품 이름, 가격) 객체
 
 - `DateRange` 클래스
-
-- [ ] : startDate, endDate를 갖는 객체
-
-- [ ] : 프로모션 기간 안인지 확인하는 함수
+- [x] : DateRange (시작일, 종료일) 객체
+- [x] : 프로모션 기간 안인지 확인하는 함수
 
 
 - `ProductStatus` 클래스
-
-- [ ] : product, 재고, 프로모션을 갖는 객체
-
-- [ ] : 판매하여 재고 감소하는 함수
+- [x] : ProductStatus (상품 이름, 수량, 프로모션 이름) 객체
+- [x] : 수량을 설정하는 함수
 
 
 - `Promotion` 클래스
-
-- [ ] : 프로모션명, buyProduct, getProduct, DateRange 를 갖는 객체
-
-- [ ] : 구매해야 하는 단위를 알려주는 함수
+- [x] : Promotion (프로모션 이름, 사는 개수, 증정 개수, DateRange 객체) 객체
+- [x] : 구매해야 하는 단위를 알려주는 함수
 
 
 - `PurchaseProduct` 클래스
-
-- [ ] : 구매할 물건의 이름, 수량, 프로모션 유무를 갖는 객체
-
-- [ ] : 프로모션 상품이면 true 로 변경하는 함수
-
-
-- `SaleList` 클래스
-
-- [ ] : 상품 재고 관리를 수행하는 함수
-
-- [ ] : 구매 상품의 프로모션 상품 수, 일반 상품 수를 저장하는 함수
+- [x] : PurchaseProduct (상품 이름, 수량, 프로모션 상품인지 아닌지) 객체
 
 
 - `PurchaseList` 클래스
-
-- [ ] : purchaseProduct 객체를 갖는 List
-
-- [ ] : 프로모션 단위로 프로모션 상품 개수 구하는 함수
-
-- [ ] : 증정 수량 계산하는 함수
+- [x] : PurchaseList : PurchaseProduct (상품 이름, 수량, 프로모션 상품인지 아닌지) 객체를 담는 List
+- [x] : 프로모션 단위로 증정 상품 개수 구하는 함수
+- [x] : 프로모션 상품이지만, 일반 결제 하는 기능
 
 
 - `CalculatedProduct` 클래스
+- [x] : CalculatedProduct (상품 이름, 수량, 가격) 객체
 
-- [ ] : 이름, 수량, 가격을 갖는 객체
+
+- `SaleList` 클래스
+- [x] : SaleList : ProductStatus (상품 이름, 수량, 프로모션 이름) 객체를 갖는 List
+- [x] : 상품 재고 관리를 수행하는 함수
+- [x] : 구매 상품의 프로모션 상품 수, 일반 상품 수를 저장하는 함수
+- [x] : 프로모션 상품이지만 일반 결제 안내를 위한 함수
+- [x] : 증정 개수만큼 안내하는 함수
+
+
+- `OutputInfo` 클래스
+- [x] : 터미널 출력 형식을 위한 enum
+
+
+- `ReceiptInfo` 클래스
+- [x] : 영수증 출력 형식을 위한 enum
 
 
 - `PromotionManager` 클래스
-
-- [ ] : 프로모션명을 키, promotion 을 값으로 갖는 Map
+- [x] : PromotionByName : (프로모션 이름, 해당 Promotion 객체) Map
 
 
 - `ProductManager` 클래스
-
-- [ ] : 상품명을 키, product 를 값으로 갖는 Map
+- [x] : ProductByName : (상품 이름, 해당 Product 객체) Map
 
 
 - `MembershipService` 클래스
-
-- [ ] : 멤버십 할인 계산하는 함수
+- [x] : 멤버십 할인 계산하는 함수
 
 
 - `ReceiptService` 클래스
-
-- [ ] : 구매 상품 내역을 출력하는 함수
-
-- [ ] : 증정 상품 내역을 출력하는 함수
-
-- [ ] : 금액 정보를 출력하는 함수
+- [x] : 구매 상품 내역을 출력하는 함수
+- [x] : 증정 상품 내역을 출력하는 함수
+- [x] : 금액 정보를 출력하는 함수
 
 
-- `counterService` 클래스
+- `CounterService` 클래스
+- [x] : 구매할 상품과 수량을 가지고 금액을 관리
 
-- [ ] : 구매할 상품과 수량을 가지고 금액을 관리
+
+- `PurchaseInfosInputValidator` 클래스
+- [x] : 구매할 상품, 수량이 유효한지 검사
+
+
+- `YesOrNoInputValidator` 클래스
+- [x] : Y / N 대답이 유효한지 검사
+
+
+- `StoreErrorMessages` 클래스
+- [x] : 에러 메시지를 enum
 
 
 - `StoreInputView` 클래스
-
-- [ ] : 구매할 상품 입력
-
-- [ ] : 수량 입력
-
-- [ ] : 혜택 수량만큼 추가 여부 입력
-
-- [ ] : 정가로 결제할지 여부 입력
-
-- [ ] : 멤버십 할인 적용 여부 입력
-
-- [ ] : 추가 구매 여부 입력
+- [x] : 구매할 상품 입력
+- [x] : 수량 입력
+- [x] : 혜택 수량만큼 추가 여부 입력
+- [x] : 정가로 결제할지 여부 입력
+- [x] : 멤버십 할인 적용 여부 입력
+- [x] : 추가 구매 여부 입력
 
 
 - `StoreOutputView` 클래스
-
-- [ ] : 환영 인사 출력
-
-- [ ] : 상품목록 출력
-
-- [ ] : 혜택 수량만큼 추가 여부 문구 출력
-
-- [ ] : 정가로 결제할지 여부 문구 출력
-
-- [ ] : 멤버십 할인 적용 여부 문구 출력
-
-- [ ] : 추가 구매 여부 문구 출력
-
-- [ ] : 영수증 출력
+- [x] : 환영 인사 출력
+- [x] : 상품목록 출력
+- [x] : 혜택 수량만큼 추가 여부 문구 출력
+- [x] : 정가로 결제할지 여부 문구 출력
+- [x] : 멤버십 할인 적용 여부 문구 출력
+- [x] : 추가 구매 여부 문구 출력
+- [x] : 영수증 출력
 
 
 - `StoreController` 클래스
@@ -436,4 +458,3 @@ N
 6. 멤버십 할인 실행
 7. 영수증 출력
 
-## ☑️ 프료그램 구조
